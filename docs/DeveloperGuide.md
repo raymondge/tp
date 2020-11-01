@@ -125,7 +125,7 @@ The `MainWindow` is made up of
 * A `StatusBarFooter` that displays the status bar footer.<br>
 Below is a class diagram for `Ui`
 <p align="center">
-    <img src="images/UiClassDiagram.png" width="1000" height="300">
+    <img src="images/UiClassDiagram.png" width="1000" height="500">
 </p>
 **API** :
 [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
