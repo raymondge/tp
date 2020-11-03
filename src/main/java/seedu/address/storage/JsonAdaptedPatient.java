@@ -84,7 +84,7 @@ class JsonAdaptedPatient {
         }
 
         if (!PeriodOfStay.isValidPeriodOfStay(periodOfStay)) {
-            throw new IllegalValueException(PeriodOfStay.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(PeriodOfStay.getErrorMessage(periodOfStay));
         }
 
         final PeriodOfStay modelPeriod = new PeriodOfStay(periodOfStay);
@@ -101,7 +101,7 @@ class JsonAdaptedPatient {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Age.class.getSimpleName()));
         }
         if (!Age.isValidAge(age)) {
-            throw new IllegalValueException(Age.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Age.getErrorMessage(age));
         }
         final Age modelAge = new Age(age);
 

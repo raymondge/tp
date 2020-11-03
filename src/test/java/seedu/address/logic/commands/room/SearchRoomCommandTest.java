@@ -86,7 +86,7 @@ public class SearchRoomCommandTest {
         descriptorPatientName.setPatientName(BENSON.getName().toString());
         SearchRoomCommand searchRoomCommand = new SearchRoomCommand(descriptorPatientName.build());
         expectedModel.updateFilteredRoomList(room -> room.isOccupied()
-                && room.getPatient().getName().equals(BENSON.getName()));
+                && room.getPatient().get().getName().equals(BENSON.getName()));
         assertCommandSuccess(searchRoomCommand, model, MESSAGE_SUCCESS, expectedModel);
         assertEquals(Arrays.asList(ROOM8_PATIENT_BENSON_NO_TASK), model.getFilteredRoomList());
     }

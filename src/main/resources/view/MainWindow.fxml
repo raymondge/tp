@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<fx:root minHeight="600" minWidth="500.0" title="Covigent" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" onCloseRequest="#handleExit">
+<fx:root minHeight="600" minWidth="500.0" onCloseRequest="#handleExit" title="Covigent" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/covigent.png" />
   </icons>
@@ -64,11 +64,11 @@
         <StackPane fx:id="commandBoxPlaceholder" styleClass="main-pane-with-border" VBox.vgrow="NEVER">
         </StackPane>
 
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="300" minHeight="100" prefHeight="200" styleClass="main-pane-with-border" VBox.vgrow="ALWAYS">
+        <StackPane fx:id="resultDisplayPlaceholder" minHeight="100" prefHeight="200" styleClass="main-pane-with-border" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin></StackPane>
-        <StackPane fx:id="statusBarPlaceholder" alignment="BOTTOM_LEFT" minHeight="30.0" />
+        <StackPane fx:id="statusBarPlaceholder" alignment="BOTTOM_LEFT" minHeight="30.0" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>

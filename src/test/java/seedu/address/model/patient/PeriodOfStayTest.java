@@ -1,5 +1,6 @@
 package seedu.address.model.patient;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -37,10 +38,17 @@ public class PeriodOfStayTest {
         assertFalse(PeriodOfStay.isValidPeriodOfStay("2020090120201009")); //missing dash
         assertFalse(PeriodOfStay.isValidPeriodOfStay("20200901-20201038")); //no such date
         assertFalse(PeriodOfStay.isValidPeriodOfStay("20201801-20201001")); //no such month
-        assertFalse(PeriodOfStay.isValidPeriodOfStay("20200901-20200801")); //end date before start date
+        assertFalse(PeriodOfStay.isValidPeriodOfStay("20200902-20200901")); //end date before start date
 
         //valid period of stay
         assertTrue(PeriodOfStay.isValidPeriodOfStay("20190308-20190506"));
         assertTrue(PeriodOfStay.isValidPeriodOfStay("20200913-20200914"));
+        assertTrue(PeriodOfStay.isValidPeriodOfStay("20200909-20200909")); //1 day stay
+    }
+
+    @Test
+    public void invalidPeriodOfStay_getErrorMessage() {
+        assertEquals(PeriodOfStay.getErrorMessage("2020abc-203"), PeriodOfStay.MESSAGE_WRONG_REGEX);
+        assertEquals(PeriodOfStay.getErrorMessage("20200304-20200101"), PeriodOfStay.MESSAGE_INVALID_DATE);
     }
 }

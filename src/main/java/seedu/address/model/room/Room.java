@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.ReadOnlyList;
 import seedu.address.model.patient.Patient;
@@ -78,12 +79,8 @@ public class Room {
 
     //// patient
 
-    public Patient getPatient() {
-        if (patient.isEmpty()) {
-            return null;
-        } else {
-            return patient.get();
-        }
+    public Optional<Patient> getPatient() {
+        return this.patient;
     }
 
     public boolean isOccupied() {
@@ -108,9 +105,9 @@ public class Room {
     }
 
     /**
-     * Returns a filtered list as an {@code ObservableList}.
+     * Returns a filtered list as an {@code FilteredList}.
      */
-    public ObservableList<Task> getFilteredTasks() {
+    public FilteredList<Task> getFilteredTasks() {
         return tasks.getFilteredList();
     }
 
@@ -232,7 +229,7 @@ public class Room {
         } else {
             return roomNumber == room.roomNumber
                     && isOccupied == room.isOccupied
-                    && patient.get().equals(room.getPatient())
+                    && patient.equals(room.getPatient())
                     && tasks.equals(room.tasks);
         }
     }
@@ -245,7 +242,7 @@ public class Room {
 
     @Override
     public String toString() {
-        String patientDetails = getPatient() == null ? "-" : getPatient().toString();
+        String patientDetails = getPatient().isEmpty() ? "-" : getPatient().toString();
         final StringBuilder builder = new StringBuilder();
         builder.append("Room Number: ")
                 .append(getRoomNumber() + "\n")

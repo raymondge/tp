@@ -128,12 +128,12 @@ public class DateTimeDue implements Comparable<DateTimeDue> {
 
         // empty vs other not empty -> returns -1
         if (value.isEmpty() && other.value.isPresent()) {
-            return 0;
+            return -1;
         }
 
         // not empty vs other empty -> returns 1
         if (value.isPresent() && other.value.isEmpty()) {
-            return 0;
+            return 1;
         }
 
         // not empty vs not empty -> returns 1 if date comes after, 0 if same date, -1 if date comes before
@@ -142,11 +142,11 @@ public class DateTimeDue implements Comparable<DateTimeDue> {
         LocalDateTime otherDueAt = other.value.get();
 
         if (dueAt.isEqual(otherDueAt)) {
-            return 1;
+            return 0;
         } else if (dueAt.isAfter(otherDueAt)) {
-            return -1;
+            return 1;
         } else {
-            return 2;
+            return -1;
         }
     }
 }

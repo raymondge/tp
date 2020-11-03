@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.text.Font?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.paint.Color?>
 
 <ScrollPane fitToWidth="true" styleClass="room-details-panel" stylesheets="@../css/RoomDetailsPanel.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <content>
-    <VBox prefHeight="200.0" prefWidth="100.0" styleClass="background" stylesheets="@../css/RoomDetailsPanel.css">
+    <VBox prefHeight="200.0" prefWidth="100.0" stylesheets="@../css/RoomDetailsPanel.css">
       <children>
         <Label id="room-number" fx:id="roomNumber" stylesheets="@../css/RoomDetailsPanel.css" text="Room Number" underline="true">
           <VBox.margin>

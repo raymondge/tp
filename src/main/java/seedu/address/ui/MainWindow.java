@@ -84,6 +84,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private StackPane taskListPanelPlaceholder;
 
+    //@@author chiamyunqing
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
      */
@@ -121,6 +122,7 @@ public class MainWindow extends UiPart<Stage> {
         content.getChildren().addAll(icon, label);
         tab.setGraphic(content);
     }
+    //@@author
 
     public void displayAppIcon() {
         logoIcon.setImage(logoImage);

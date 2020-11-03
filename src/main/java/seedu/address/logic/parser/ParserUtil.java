@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INVALID_NUMBER = "Please only enter positive numbers.";
+    public static final String MESSAGE_INVALID_NUMBER = "Please only enter positive integers. E.g. 6 ";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be

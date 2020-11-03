@@ -11,11 +11,16 @@ import java.time.format.DateTimeParseException;
 /**
  * Represents a Patient's period of stay in the facility.
  * Guarantees: immutable; is valid as declared in {@link #isValidPeriodOfStay(String)}
+ * If the period of stay is invalid, the corresponding error message should be retrieved
+ * via {@link #getErrorMessage(String)}.
  */
 public class PeriodOfStay {
 
-    public static final String MESSAGE_CONSTRAINTS =
-            "Period of stay should be in the format YYYYMMDD-YYYYMMDD.";
+    public static final String MESSAGE_WRONG_REGEX =
+            "Period of stay should be in the format YYYYMMDD-YYYYMMDD. \nE.g. 20200911-20200924";
+    public static final String MESSAGE_INVALID_DATE =
+            "The dates of the period of stay must be valid.\nIn particular, the start date of the period of stay "
+            + "must be before or equals the end date.\nE.g. 20200901-20200901 or 20200901-20200914.";
 
     public static final String VALIDATION_REGEX = "\\d{8}[-]\\d{8}";
 
@@ -29,26 +34,55 @@ public class PeriodOfStay {
      */
     public PeriodOfStay(String periodOfStay) {
         requireNonNull(periodOfStay);
-        checkArgument(isValidPeriodOfStay(periodOfStay), MESSAGE_CONSTRAINTS);
+        checkArgument(isRegexCorrect(periodOfStay), MESSAGE_WRONG_REGEX);
+        checkArgument(isValidDates(periodOfStay), MESSAGE_INVALID_DATE);
         startDate = LocalDate.parse(periodOfStay.split("-")[0], DateTimeFormatter.ofPattern("yyyyMMdd"));
         endDate = LocalDate.parse(periodOfStay.split("-")[1], DateTimeFormatter.ofPattern("yyyyMMdd"));
+    }
+
+    /**
+     * Returns true if a given string matches the validation regex.
+     */
+    private static boolean isRegexCorrect(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if a given string has valid start and end dates.
+     * Start and end dates are valid if start date is before or equals end date.
+     */
+    private static boolean isValidDates(String test) {
+        assert(isRegexCorrect(test));
+        String[] dates = test.split("-");
+        try {
+            LocalDate start = LocalDate.parse(dates[0], DateTimeFormatter.ofPattern("yyyyMMdd"));
+            LocalDate end = LocalDate.parse(dates[1], DateTimeFormatter.ofPattern("yyyyMMdd"));
+            return start.compareTo(end) <= 0; //check start date less than or equals end date
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     /**
      * Returns true if a given string is a valid period of stay.
      */
     public static boolean isValidPeriodOfStay(String test) {
-        boolean isRegexCorrect = test.matches(VALIDATION_REGEX);
-        if (!isRegexCorrect) {
-            return false;
-        }
-        String[] dates = test.split("-");
-        try {
-            LocalDate start = LocalDate.parse(dates[0], DateTimeFormatter.ofPattern("yyyyMMdd"));
-            LocalDate end = LocalDate.parse(dates[1], DateTimeFormatter.ofPattern("yyyyMMdd"));
-            return start.compareTo(end) < 0; //check start date less than end date
-        } catch (DateTimeParseException e) {
-            return false;
+        return isRegexCorrect(test) && isValidDates(test);
+    }
+
+    /**
+     * Returns the precise error message according to the error that arises.
+     * This method should only be called if isValidPeriodOfStay(test) returns false.
+     *
+     * @param test the string with error in converting to periodOfStay.
+     * @return the exact error message that corresponds to the error.
+     */
+    public static String getErrorMessage(String test) {
+        assert(!isValidPeriodOfStay(test));
+        if (!isRegexCorrect(test)) {
+            return MESSAGE_WRONG_REGEX;
+        } else {
+            return MESSAGE_INVALID_DATE;
         }
     }
 

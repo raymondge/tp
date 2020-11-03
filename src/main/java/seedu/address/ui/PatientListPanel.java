@@ -13,6 +13,8 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.patient.Patient;
 
+//@@author chiamyunqing-reused
+//Reused from RoomListPanel class
 /**
  * Panel containing the list of patients.
  */

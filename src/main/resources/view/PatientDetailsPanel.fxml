@@ -6,17 +6,17 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 
 <!--emulates room details panel -->
 
-<ScrollPane fitToWidth="true" styleClass="patient-details-panel" stylesheets="@../css/PatientDetailsPanel.css"
-            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<ScrollPane fitToWidth="true" styleClass="patient-details-panel" stylesheets="@../css/PatientDetailsPanel.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
   <content>
-    <VBox prefHeight="200.0" prefWidth="100.0">
+    <VBox>
       <children>
         <VBox prefHeight="200.0" prefWidth="100.0">
           <children>
-            <Label id="nameOfPatient" fx:id="name" text="\$name">
+            <Label id="nameOfPatient" fx:id="name" text="\$name" wrapText="true" minHeight="-Infinity">
               <opaqueInsets>
                 <Insets />
               </opaqueInsets>
@@ -42,7 +42,7 @@
                 <Insets left="10.0" top="10.0" />
               </padding>
             </Label>
-            <Label fx:id="phone" text="\$phone">
+            <Label fx:id="phone" text="\$phone" wrapText="true" minHeight="-Infinity">
               <padding>
                 <Insets left="10.0" top="10.0" />
               </padding>
@@ -52,7 +52,7 @@
                 <Insets left="10.0" top="10.0" />
               </padding>
             </Label>
-            <Label fx:id="comment" text="\$comment">
+            <Label fx:id="comment" text="\$comment" wrapText="true" minHeight="-Infinity">
               <padding>
                 <Insets left="10.0" top="10.0" />
               </padding>
@@ -63,6 +63,9 @@
     </VBox>
   </content>
   <effect>
-    <DropShadow />
+    <DropShadow>
+      <color>
+        <Color opacity="0.3199999928474426" />
+      </color></DropShadow>
   </effect>
 </ScrollPane>

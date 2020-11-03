@@ -39,13 +39,13 @@ class AllocateRoomCommandTest {
 
     @Test
     public void constructor_nullInputs_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> new AllocateRoomCommand(null, null));
+        assertThrows(NullPointerException.class, () -> new AllocateRoomCommand(null, null, false));
     }
 
     @Test
     public void execute_invalidRoomNumber_failure() {
         AllocateRoomCommand.AllocateRoomDescriptor descriptor = new AllocateRoomDescriptorBuilder().build();
-        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(-100, descriptor);
+        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(-100, descriptor, false);
         assertThrows(AssertionError.class, () -> allocateRoomCommand.execute(model));
     }
 
@@ -57,7 +57,7 @@ class AllocateRoomCommandTest {
 
         AllocateRoomCommand.AllocateRoomDescriptor descriptor = new AllocateRoomDescriptorBuilder()
                 .withPatient(CARL.getName()).build();
-        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(roomNumberForAllocation, descriptor);
+        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(roomNumberForAllocation, descriptor, false);
 
         String expectedMessage = String.format(MESSAGE_ALLOCATE_ROOM_SUCCESS, editedRoom);
         Model expectedModel = new ModelManager(getTypicalPatientRecords(),
@@ -77,7 +77,7 @@ class AllocateRoomCommandTest {
         AllocateRoomCommand.AllocateRoomDescriptor descriptor = new AllocateRoomDescriptorBuilder()
                 .withOccupancy(false).build();
 
-        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(roomNumberForAllocation, descriptor);
+        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(roomNumberForAllocation, descriptor, true);
 
         String expectedMessage = String.format(MESSAGE_ALLOCATE_ROOM_SUCCESS, allocatedRoom);
         Model expectedModel = new ModelManager(getTypicalPatientRecords(),
@@ -91,11 +91,11 @@ class AllocateRoomCommandTest {
     public void execute_allocatePatientAlreadyInAnotherRoom_failure() {
         Room roomToAllocatePatient = model.getRoomListObservableList().get(0); //the empty room
         Integer roomNumberForAllocation = roomToAllocatePatient.getRoomNumber();
-        Patient patientInAnotherRoom = model.getRoomListObservableList().get(6).getPatient();
+        Patient patientInAnotherRoom = model.getRoomListObservableList().get(6).getPatient().get();
 
         AllocateRoomCommand.AllocateRoomDescriptor descriptor = new AllocateRoomDescriptorBuilder()
                 .withPatient(patientInAnotherRoom.getName()).build();
-        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(roomNumberForAllocation, descriptor);
+        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(roomNumberForAllocation, descriptor, false);
 
         assertCommandFailure(allocateRoomCommand, model, MESSAGE_PATIENT_ALREADY_ASSIGNED);
     }
@@ -107,7 +107,7 @@ class AllocateRoomCommandTest {
 
         AllocateRoomCommand.AllocateRoomDescriptor descriptor = new AllocateRoomDescriptorBuilder()
                 .withPatient(BOB.getName()).build();
-        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(roomNumberForAllocation, descriptor);
+        AllocateRoomCommand allocateRoomCommand = new AllocateRoomCommand(roomNumberForAllocation, descriptor, false);
 
         assertCommandFailure(allocateRoomCommand, model, Messages.MESSAGE_INVALID_PATIENT_NAME);
     }
@@ -118,20 +118,20 @@ class AllocateRoomCommandTest {
         AllocateRoomCommand.AllocateRoomDescriptor descriptor1 = new AllocateRoomDescriptorBuilder(allocateRoom7)
                 .withRoomNumber(20).build();
         AllocateRoomCommand allocateRoomNumberCommand = new AllocateRoomCommand(allocateRoom7.getRoomNumber(),
-                descriptor1);
+                descriptor1, false);
 
         Room allocateRoom8 = model.getRoomListObservableList().get(7);
         AllocateRoomCommand.AllocateRoomDescriptor descriptor2 = new AllocateRoomDescriptorBuilder(allocateRoom8)
                 .withPatient(CARL.getName()).build();
         AllocateRoomCommand allocatePatientInRoomCommand = new AllocateRoomCommand(allocateRoom8.getRoomNumber(),
-                descriptor2);
+                descriptor2, false);
 
         // same object -> returns true
         assertTrue(allocateRoomNumberCommand.equals(allocateRoomNumberCommand));
 
         // same values -> returns true
         AllocateRoomCommand editRoomNumberCommandCopy = new AllocateRoomCommand(allocateRoom7.getRoomNumber(),
-                descriptor1);
+                descriptor1, false);
         assertTrue(allocateRoomNumberCommand.equals(editRoomNumberCommandCopy));
 
         // different types -> returns false

@@ -66,7 +66,7 @@ public class AllocateRoomCommandParserTest {
                 .withPatient(new Name(VALID_NAME_JAMES))
                 .build();
         AllocateRoomCommand expectedCommand = new AllocateRoomCommand(Integer.valueOf(VALID_ROOM_NUMBER_ONE),
-            descriptor);
+            descriptor, false);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -80,7 +80,7 @@ public class AllocateRoomCommandParserTest {
             .withPatient(new Name(VALID_NAME_AMY))
             .build();
         AllocateRoomCommand expectedCommand = new AllocateRoomCommand(Integer.valueOf(VALID_ROOM_NUMBER_ONE),
-            descriptor);
+            descriptor, false);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -91,7 +91,7 @@ public class AllocateRoomCommandParserTest {
             .withRoomNumber(Integer.valueOf(VALID_ROOM_NUMBER_ONE))
             .withPatient(new Name(VALID_NAME_JAMES)).build();
         AllocateRoomCommand expectedCommand = new AllocateRoomCommand(Integer.valueOf(VALID_ROOM_NUMBER_TWO),
-            descriptor);
+            descriptor, false);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -106,9 +106,9 @@ public class AllocateRoomCommandParserTest {
             .withPatient(new Name(VALID_NAME_JAMES)).build();
 
         AllocateRoomCommand allocateFirstRoomCommand = new AllocateRoomCommand(
-            Integer.valueOf(VALID_ROOM_NUMBER_ONE), descriptorOne);
+            Integer.valueOf(VALID_ROOM_NUMBER_ONE), descriptorOne, false);
         AllocateRoomCommand allocateSecondRoomCommand = new AllocateRoomCommand(
-            Integer.valueOf(VALID_ROOM_NUMBER_TWO), descriptorTwo);
+            Integer.valueOf(VALID_ROOM_NUMBER_TWO), descriptorTwo, false);
 
         // same object -> returns true
         assertTrue(allocateFirstRoomCommand.equals(allocateFirstRoomCommand));

@@ -72,7 +72,7 @@ public class PatientParserUtil {
         requireNonNull(periodOfStay);
         String trimmedPeriodOfStay = periodOfStay.trim();
         if (!PeriodOfStay.isValidPeriodOfStay(trimmedPeriodOfStay)) {
-            throw new ParseException(PeriodOfStay.MESSAGE_CONSTRAINTS);
+            throw new ParseException(PeriodOfStay.getErrorMessage(trimmedPeriodOfStay));
         }
         return new PeriodOfStay(trimmedPeriodOfStay);
     }
@@ -87,7 +87,7 @@ public class PatientParserUtil {
         requireNonNull(age);
         String trimmedAge = age.trim();
         if (!Age.isValidAge(trimmedAge)) {
-            throw new ParseException(Age.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Age.getErrorMessage(trimmedAge));
         }
         return new Age(trimmedAge);
     }
@@ -99,7 +99,7 @@ public class PatientParserUtil {
      * @return an "-" comment if no comment is added
      */
     public static Comment parseComment(String comment) {
-        if (comment == null) {
+        if (comment == null || comment.trim().length() == 0) {
             return new Comment("-");
         } else {
             return new Comment(comment.trim());

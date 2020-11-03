@@ -10,6 +10,6 @@
     <VBox maxWidth="350.0" minWidth="200.0" HBox.hgrow="ALWAYS">
       <ListView fx:id="patientListView" onMouseClicked="#handleMouseClick" />
     </VBox>
-    <AnchorPane fx:id="patientDetailsPanelPlaceholder" HBox.hgrow="ALWAYS" />
+    <AnchorPane fx:id="patientDetailsPanelPlaceholder" minWidth="300.0" HBox.hgrow="ALWAYS" />
   </children>
 </HBox>

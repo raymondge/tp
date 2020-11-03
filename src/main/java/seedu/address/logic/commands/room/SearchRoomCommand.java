@@ -41,6 +41,7 @@ public class SearchRoomCommand extends Command {
     /**
      * Creates a SearchRoomCommand to look for the specified room based on the inputs
      * in searchRoomDescriptor.
+     *
      * @param descriptor Details to search the room with.
      */
     public SearchRoomCommand(SearchRoomDescriptor descriptor) {
@@ -71,7 +72,7 @@ public class SearchRoomCommand extends Command {
             throw new CommandException(MESSAGE_PATIENT_NO_ROOM);
         }
         model.updateFilteredRoomList(room -> room.isOccupied()
-                && room.getPatient().getName().equals(patientName));
+                && room.getPatient().get().getName().equals(patientName));
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

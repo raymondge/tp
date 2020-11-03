@@ -146,8 +146,8 @@ public class ModelManager implements Model {
     public boolean isPatientAssignedToRoom(Name name) {
         requireNonNull(name);
         for (Room room : roomList.getRoomObservableList()) {
-            if (room.getPatient() != null) {
-                Name patientNameInRoom = room.getPatient().getName();
+            if (room.getPatient().isPresent()) {
+                Name patientNameInRoom = room.getPatient().get().getName();
                 if (patientNameInRoom.equals(name)) {
                     return true;
                 }
@@ -237,9 +237,9 @@ public class ModelManager implements Model {
         requireNonNull(patientToEdit);
         ObservableList<Room> roomObservableList = this.roomList.getRoomObservableList();
         for (int i = 0; i < roomObservableList.size(); i++) {
-            Patient patient = roomObservableList.get(i).getPatient();
-            if (isPatientAssignedToRoom(patientToEdit.getName()) && roomObservableList.get(i).isOccupied()
-                    && patient.isSamePatient(patientToEdit)) {
+            Optional<Patient> patient = roomObservableList.get(i).getPatient();
+            if (isPatientAssignedToRoom(patientToEdit.getName()) && patient.isPresent()
+                    && patient.get().isSamePatient(patientToEdit)) {
                 Room updatedRoom = roomObservableList.get(i);
                 if (editedPatient == null) {
                     updatedRoom.setOccupied(false);

@@ -62,8 +62,8 @@ public class RoomDetailsPanel extends UiPart<Region> {
      */
     public void setRoomDetails(Room room) {
         logger.log(Level.INFO, "Set non-empty room details successfully.");
-        if (room.getPatient() != null) {
-            patientDetails.setText(room.getPatient().toString());
+        if (room.getPatient().isPresent()) {
+            patientDetails.setText(room.getPatient().get().toString());
         } else {
             patientDetails.setText("No Patient Present.");
         }

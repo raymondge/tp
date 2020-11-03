@@ -105,7 +105,7 @@ public class RoomTasks implements ReadOnlyList<Task> {
     /**
      * Returns the filtered list of tasks for this room.
      */
-    public ObservableList<Task> getFilteredList() {
+    public FilteredList<Task> getFilteredList() {
         return filteredTaskList;
     }
 

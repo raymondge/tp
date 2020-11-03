@@ -87,7 +87,7 @@ public class RoomTaskDetailsPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 int roomNumber = room.getRoomNumber();
-                int taskNumber = getIndex() + 1;
+                int taskNumber = room.getFilteredTasks().getSourceIndex(getIndex()) + 1;
                 int totalNumberOfTasksInRoom = room.getReadOnlyTasks().size();
                 setGraphic(new TaskCard(roomNumber, taskNumber, totalNumberOfTasksInRoom, task)
                         .getRoot());

@@ -38,9 +38,12 @@ public class TemperatureTest {
         assertFalse(Temperature.isValidTemperature("37.a")); //EP: alphabets within digits
         assertFalse(Temperature.isValidTemperature("37.")); //EP: no digit after decimal
         assertFalse(Temperature.isValidTemperature("3 7.6")); //EP: spaces within digits
+        assertFalse(Temperature.isValidTemperature("31.9")); //Boundary value
+        assertFalse(Temperature.isValidTemperature("41.1")); //Boundary value
 
         // valid temperature
-        assertTrue(Temperature.isValidTemperature("36.7"));
+        assertTrue(Temperature.isValidTemperature("32.0"));
         assertTrue(Temperature.isValidTemperature("36.0"));
+        assertTrue(Temperature.isValidTemperature("41.0"));
     }
 }

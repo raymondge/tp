@@ -38,20 +38,25 @@ public class AllocateRoomCommand extends Command {
 
     public static final String MESSAGE_ALLOCATE_ROOM_SUCCESS = "Allocated Room: %1$s";
     public static final String MESSAGE_DUPLICATE_ROOM = "The patient is already allocated to a room.";
+    public static final String MESSAGE_NO_PATIENT_TO_REMOVE = "There is no patient in this room to remove.";
 
     private final Integer roomNumberToAllocate;
     private final AllocateRoomDescriptor allocateRoomDescriptor;
+    private final boolean toRemove;
 
     /**
      * Constructs an AllocateRoomCommand to edit the room with the room number {@code Integer}.
      *
-     * @param roomNumberToAllocate room number to edit
-     * @param allocateRoomDescriptor details to edit the room with
+     * @param roomNumberToAllocate Room number to edit.
+     * @param allocateRoomDescriptor Details to edit the room with.
+     * @param toRemove Room if it is true.
      */
-    public AllocateRoomCommand(Integer roomNumberToAllocate, AllocateRoomDescriptor allocateRoomDescriptor) {
-        requireAllNonNull(roomNumberToAllocate, allocateRoomDescriptor);
+    public AllocateRoomCommand(Integer roomNumberToAllocate, AllocateRoomDescriptor allocateRoomDescriptor,
+                               boolean toRemove) {
+        requireAllNonNull(roomNumberToAllocate, allocateRoomDescriptor, toRemove);
         this.roomNumberToAllocate = roomNumberToAllocate;
         this.allocateRoomDescriptor = new AllocateRoomDescriptor(allocateRoomDescriptor);
+        this.toRemove = toRemove;
     }
 
     @Override
@@ -79,7 +84,7 @@ public class AllocateRoomCommand extends Command {
      * Creates and returns a {@code Room} with the details of {@code roomToAllocate}
      * edited with {@code allocateRoomDescriptor}.
      *
-     * @param model Current model
+     * @param model Current model.
      * @param roomToAllocate Room that is to be edited.
      * @param allocateRoomDescriptor Details to edit the room with.
      * @return Room that has been edited.
@@ -91,8 +96,10 @@ public class AllocateRoomCommand extends Command {
 
         int roomNumber = roomToAllocate.getRoomNumber();
         RoomTasks roomTaskList = new RoomTasks(roomToAllocate.getReadOnlyTasks());
-        boolean isClearRoom = allocateRoomDescriptor.getIsOccupied().isPresent();
-        if (isClearRoom) {
+        if (toRemove) {
+            if (roomToAllocate.getPatient().isEmpty()) {
+                throw new CommandException(MESSAGE_NO_PATIENT_TO_REMOVE);
+            }
             return new Room(roomNumber, false, Optional.empty(), roomTaskList);
         }
         Name patientName = allocateRoomDescriptor.getPatientName().get(); //definitely has name

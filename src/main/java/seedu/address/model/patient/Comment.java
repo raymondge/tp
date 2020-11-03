@@ -17,6 +17,7 @@ public class Comment {
      */
     public Comment(String comment) {
         requireNonNull(comment);
+        assert(comment.length() != 0);
         value = comment;
     }
 

@@ -1,5 +1,6 @@
 package seedu.address.model.patient;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.testutil.Assert.assertThrows;
@@ -44,5 +45,11 @@ public class AgeTest {
         assertTrue(Age.isValidAge("0"));
         assertTrue(Age.isValidAge("30"));
         assertTrue(Age.isValidAge("119")); //still possible
+    }
+
+    @Test
+    public void invalidAge_getErrorMessage() {
+        assertEquals(Age.getErrorMessage("twenty"), Age.MESSAGE_AGE_NOT_NUMBER);
+        assertEquals(Age.getErrorMessage("120"), Age.MESSAGE_INVALID_AGE_RANGE);
     }
 }

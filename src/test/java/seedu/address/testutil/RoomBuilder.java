@@ -38,7 +38,7 @@ public class RoomBuilder {
     public RoomBuilder(Room roomToCopy) {
         roomNumber = roomToCopy.getRoomNumber();
         isOccupied = roomToCopy.isOccupied();
-        patient = roomToCopy.getPatient();
+        patient = roomToCopy.getPatient().orElse(null);
         roomTasks = new RoomTasks(roomToCopy.getReadOnlyTasks()); // shallow copy
     }
 
